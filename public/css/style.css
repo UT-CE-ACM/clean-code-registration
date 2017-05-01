@@ -7,12 +7,7 @@
 	src: url(/fonts/IRANSans-B.woff) format('woff'), url(/fonts/IRANSans-B.ttf) format('truetype')
 }
 html {
-	background-image: url('../img/back.jpg');
-	background-position: center center;
-	background-repeat: no-repeat;
-	background-size: cover;
 	min-height: 100vh;
-	background-attachment: fixed;
 }
 body {
 	background: transparent;
