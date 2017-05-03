@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Member;
 use Illuminate\Http\Request;
 
 class MemberController extends Controller
@@ -44,6 +45,16 @@ class MemberController extends Controller
             "rules_and_regulations" => "required"
         ];
         $this->validate($request, $rules);
+
+        Member::create([
+            "first_name" => $request->get('first_name'),
+            "last_name" => $request->get('last_name'),
+            "email" => $request->get('email'),
+            "phone_number" => $request->get('phone_number'),
+            "education" => $request->get('education'),
+            "university_name" => $request->get('university_name'),
+        ]);
+        return response()->make('welcome');
     }
 
     /**
