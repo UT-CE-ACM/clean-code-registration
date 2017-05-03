@@ -18,6 +18,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::post('/register-member', 'MemberController@store');
+Route::get('/register-member', 'MemberController@create');
 Route::group(
     [
         'prefix' => 'admin',
