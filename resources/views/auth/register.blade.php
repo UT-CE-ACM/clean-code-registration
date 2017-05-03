@@ -14,7 +14,7 @@
                             <label for="first_name" class="col-md-4 control-label">نام</label>
 
                             <div class="col-md-6">
-                                <input id="first_name" type="text" class="form-control" name="first_name" value="{{ old('first_name') }}" required autofocus>
+                                <input id="first_name" type="text" class="form-control" name="first_name" value="{{ old('first_name') }}"   autofocus>
 
                                 @if ($errors->has('first_name'))
                                     <span class="help-block">
@@ -28,7 +28,7 @@
                             <label for="last_name" class="col-md-4 control-label">نام خانوادگی</label>
 
                             <div class="col-md-6">
-                                <input id="last_name" type="text" class="form-control" name="last_name" value="{{ old('last_name') }}" required autofocus>
+                                <input id="last_name" type="text" class="form-control" name="last_name" value="{{ old('last_name') }}"  >
 
                                 @if ($errors->has('last_name'))
                                     <span class="help-block">
@@ -42,7 +42,7 @@
                             <label for="email" class="col-md-4 control-label">آدرس ایمیل</label>
 
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>
+                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}"  >
 
                                 @if ($errors->has('email'))
                                     <span class="help-block">
@@ -56,7 +56,7 @@
                             <label for="phone_number" class="col-md-4 control-label">شماره تماس</label>
 
                             <div class="col-md-6">
-                                <input id="phone_number" type="number" class="form-control" name="phone_number" required>
+                                <input id="phone_number" type="number" class="form-control" name="phone_number" value="{{ old('phone_number') }}">
 
                                 @if ($errors->has('phone_number'))
                                     <span class="help-block">
@@ -72,10 +72,10 @@
                             <label for="education" class="col-md-4 control-label">وضعیت تحصیلی</label>
 
                             <div class="col-md-6">
-                                <select id="education" class="form-control selectpicker" name="education" required>
-                                    <option value="student">دانش آموز</option>
-                                    <option value="collegian">دانشجو</option>
-                                    <option value="graduated">فارغ التحصیل</option>
+                                <select id="education" class="form-control selectpicker" name="education">
+                                    <option value="student" @if(old('education')=="student")selected @endif>دانش آموز</option>
+                                    <option value="collegian" @if(old('education')=="collegian")selected @endif>دانشجو</option>
+                                    <option value="graduated" @if(old('education')=="graduated")selected @endif>فارغ التحصیل</option>
                                 </select>
 
                                 @if ($errors->has('education'))
@@ -90,7 +90,7 @@
                             <label for="university_name" class="col-md-4 control-label">نام دانشگاه</label>
 
                             <div class="col-md-6">
-                                <input id="university_name" type="text" class="form-control" name="university_name">
+                                <input id="university_name" type="text" class="form-control" name="university_name" value="{{ old('university_name') }}">
 
                                 @if ($errors->has('university_name'))
                                     <span class="help-block">
@@ -102,10 +102,17 @@
 
                         <hr>
 
-                        <div class="form-group{{ $errors->has('university_name') ? ' has-error' : '' }} text-center" id="university-name-container">
+                        <div class="form-group{{ $errors->has('rules_and_regulations') ? ' has-error' : '' }} text-center" id="university-name-container">
                             <label class="control-label">
-                                <input class="checkbox-inline" style="margin-left: 5px;" type="checkbox" value="1">ضمن خواندن قوانین و مقررات با آن ها موافقم!
+                                <input name="rules_and_regulations" class="checkbox-inline"
+                                       style="margin-left: 5px;" type="checkbox" value="1">ضمن خواندن قوانین و مقررات با آن ها موافقم!
                             </label>
+
+                            @if ($errors->has('rules_and_regulations'))
+                                <span class="help-block">
+                                        <strong>{{ $errors->first('rules_and_regulations') }}</strong>
+                                    </span>
+                            @endif
                         </div>
 
                         <div class="form-group">
@@ -124,12 +131,17 @@
 @section('js')
     <script>
         jQuery(document).ready(function () {
-            jQuery("#university-name-container").hide();
-            jQuery("#education").change(function () {
-                if (jQuery("#education").val() == "collegian")
-                    jQuery("#university-name-container").slideDown();
+            var educationInput = jQuery("#education");
+            var universityNameContainer = jQuery("#university-name-container");
+
+            if (educationInput.val() != "collegian")
+                universityNameContainer.hide();
+
+            educationInput.change(function () {
+                if (educationInput.val() == "collegian")
+                    universityNameContainer.slideDown();
                 else
-                    jQuery("#university-name-container").slideUp();
+                    universityNameContainer.slideUp();
             });
         });
     </script>

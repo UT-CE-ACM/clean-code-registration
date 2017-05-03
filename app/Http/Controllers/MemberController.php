@@ -34,7 +34,16 @@ class MemberController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $rules = [
+            "first_name" => "required",
+            "last_name" => "required",
+            "email" => "required|email",
+            "phone_number" => "required|numeric",
+            "education" => "required",
+            "university_name" => "required_if:education,collegian",
+            "rules_and_regulations" => "required"
+        ];
+        $this->validate($request, $rules);
     }
 
     /**
