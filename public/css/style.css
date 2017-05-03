@@ -235,3 +235,7 @@ footer {
 	padding: 10px 20px;
 	margin-top: 30px;
 }
+
+.navbar-photo{
+	max-width: 50px;
+}
