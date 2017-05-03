@@ -42,6 +42,7 @@ class MemberController extends Controller
             "phone_number" => "required|numeric",
             "education" => "required",
             "university_name" => "required_if:education,collegian",
+            'g-recaptcha-response' => 'required|recaptcha',
             "rules_and_regulations" => "required"
         ];
         $this->validate($request, $rules);

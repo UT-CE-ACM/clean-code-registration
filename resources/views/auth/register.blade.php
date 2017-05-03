@@ -102,21 +102,30 @@
 
                         <hr>
 
-                        <div class="form-group{{ $errors->has('rules_and_regulations') ? ' has-error' : '' }} text-center" id="university-name-container">
-                            <label class="control-label">
+                        <div class="form-group{{ $errors->has('rules_and_regulations') ? ' has-error' : '' }}" id="university-name-container">
+                            <label class="control-label col-md-offset-3" >
                                 <input name="rules_and_regulations" class="checkbox-inline"
                                        style="margin-left: 5px;" type="checkbox" value="1">ضمن خواندن قوانین و مقررات با آن ها موافقم!
                             </label>
 
                             @if ($errors->has('rules_and_regulations'))
-                                <span class="help-block">
+                                <span class="help-block col-md-offset-3">
                                         <strong>{{ $errors->first('rules_and_regulations') }}</strong>
                                     </span>
                             @endif
                         </div>
 
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
+                        <div class="col-md-offset-3">
+                            {!! Recaptcha::render() !!}
+                            @if ($errors->has('g-recaptcha-response'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('g-recaptcha-response') }}</strong>
+                                </span>
+                            @endif
+                        </div>
+
+                        <div class="form-group" style="padding-top: 20px;">
+                            <div class="col-md-7 col-md-offset-3">
                                 <button type="submit" class="btn btn-primary">ثبت نام</button>
                             </div>
                         </div>
