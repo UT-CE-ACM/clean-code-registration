@@ -18,7 +18,7 @@
         <div class="flex-center position-ref full-height">
             @if (Route::has('login'))
                 <div class="top-right links">
-                    <img src="/img/clearncode.jpg" alt="">
+                    {{--<img src="/img/clearncode.jpg" alt="">--}}
                 </div>
             @endif
 
@@ -27,6 +27,7 @@
                     clean code
                 </div>
                 <div class="links">
+                    <a href="/rules-and-regulations">قوانین و مقررات</a>
                     <a href="/register-member">ثبت نام</a>
                     <a href="/follow-up">پی گیری ثبت نام</a>
                 </div>
