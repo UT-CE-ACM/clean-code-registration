@@ -93,7 +93,7 @@
 
 <!-- Scripts -->
 <script src="/js/app.js"></script>
-<script src="/js/jquery.js"></script>
+<script src="/js/jquery-3.2.1.js"></script>
 @yield('js')
 
 </body>
