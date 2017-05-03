@@ -1,4 +1,4 @@
-@extends('admin.user.base')
+@extends('admin.member.base')
 
 @section('main-content')
     @if($user->id == null)

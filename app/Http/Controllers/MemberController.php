@@ -14,7 +14,8 @@ class MemberController extends Controller
      */
     public function index()
     {
-        //
+        $objects = Member::all();
+        return view('admin.member.index', compact('objects'));
     }
 
     /**
