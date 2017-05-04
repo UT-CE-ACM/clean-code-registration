@@ -121,6 +121,7 @@ class MemberController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Member::find($id)->delete();
+        return redirect('/admin/member');
     }
 }
