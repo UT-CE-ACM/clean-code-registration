@@ -1,4 +1,8 @@
-@extends('layouts.app')
+@extends('public.base')
+
+@section('title')
+    ثبت نام در مسابقه
+@endsection
 
 @section('content')
 <div class="container">

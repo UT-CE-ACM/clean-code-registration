@@ -11,9 +11,9 @@
     <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="/css/style.css">
-    <link href="/css/bootstrap-rtl.css" rel="stylesheet">
     <link href="/css/app.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
+    <link href="/css/bootstrap-rtl.css" rel="stylesheet">
     @yield('css')
 </head>
 <body>
@@ -46,7 +46,7 @@
                     <!-- Authentication Links -->
 
                     <img class="navbar-photo pull-right" src="/img/photo_۲۰۱۷-۰۲-۱۵_۱۱-۵۳-۰۶.jpg" alt="">
-                    <li><a href="/rules-and-regulations">قوانین و مقررات</a></li>
+                    <img class="navbar-photo pull-right" src="/img/clean_code_72_color.png" alt="">
 
                 </ul>
             </div>
