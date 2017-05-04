@@ -39,7 +39,7 @@ class MemberController extends Controller
         $rules = [
             "first_name" => "required",
             "last_name" => "required",
-            "email" => "required|email",
+            "email" => "required|email|unique",
             "phone_number" => "required|numeric",
             "education" => "required",
             "university_name" => "required_if:education,collegian",
@@ -73,12 +73,13 @@ class MemberController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        //
+        $obj = Member::find($id);
+        return view('admin.member.insert', compact('obj'));
     }
 
     /**
@@ -90,7 +91,26 @@ class MemberController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $rules = [
+            "first_name" => "required",
+            "last_name" => "required",
+            "email" => "required|email|unique:members,email,".$id,
+            "phone_number" => "required|numeric",
+            "education" => "required",
+            "university_name" => "required_if:education,collegian",
+        ];
+        $this->validate($request, $rules);
+
+        $member = Member::find($id);
+        $member->update([
+            "first_name" => $request->get('first_name'),
+            "last_name" => $request->get('last_name'),
+            "email" => $request->get('email'),
+            "phone_number" => $request->get('phone_number'),
+            "education" => $request->get('education'),
+            "university_name" => $request->get('university_name'),
+        ]);
+        return redirect('/admin/member');
     }
 
     /**

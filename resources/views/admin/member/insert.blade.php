@@ -1,7 +1,7 @@
 @extends('admin.member.base')
 
 @section('main-content')
-    @if($user->id == null)
+    @if($obj->id == null)
         <h3>ایجاد تیم جدید</h3>
     @else
         <h3>ویرایش تیم</h3>
@@ -16,77 +16,68 @@
             </ul>
         </div>
     @endif
-    @if($user->id==NULL)
-        {{Form::open(array('url' => '/admin/user', 'method' => 'post', 'files'=>true , 'class' => 'form-horizontal ls_form'))}}
+    @if($obj->id==NULL)
+        <form action="/admin/member" method="POST" class="form-horizontal ls_form">
     @else
-        {{Form::model($user, array('url' => '/admin/user/'. $user->id, 'method' => 'put' ,'files' => true, 'class' => 'form-horizontal ls_form'))}}
+        <form action="/admin/member/{{$obj->id}}" method="POST" class="form-horizontal ls_form">
+            <input type="hidden" name="_method" value="PUT">
     @endif
-    <div class="row ls_divider last">
-        <div class="form-group form-padding">
+            {{ csrf_field() }}
+            <div class="row ls_divider last">
+                <div class="form-group form-padding">
 
-            <h4 class="from-header">مشخصات تیم</h4>
-            <div class="row padding">
-                <label class="col-md-2 control-label">نام تیم</label>
-                <div class="col-md-10">
-                    {{ Form::text('name', old('name'), ['placeholder' => 'نام تیم', "class" => 'form-control input-lg ls-group-input']) }}
-                </div>
-            </div>
+                    <h4 class="from-header">مشخصات فرد</h4>
+                    <div class="row padding">
+                        <label for="first_name" class="col-md-2 control-label">نام</label>
+                        <div class="col-md-10">
+                            <input name="first_name" type="text" value="{{ $obj->id ? $obj->first_name : old('first_name') }}" class="form-control input-lg ls-group-input">
+                        </div>
+                    </div>
+                    <div class="row padding">
+                        <label class="col-md-2 control-label">نام خانوادگی</label>
+                        <div class="col-md-10">
+                            <input name="last_name" type="text" value="{{ $obj->id ? $obj->last_name : old('last_name') }}" class="form-control input-lg ls-group-input">
+                        </div>
+                    </div>
+                    <div class="row padding">
+                        <label class="col-md-2 control-label">ایمیل</label>
+                        <div class="col-md-10">
+                            <input name="email" type="email" value="{{ $obj->id ? $obj->email : old('email') }}" class="form-control input-lg ls-group-input">
+                        </div>
+                    </div>
+                    <div class="row padding">
+                        <label class="col-md-2 control-label">شماره تماس</label>
+                        <div class="col-md-10">
+                            <input name="phone_number" type="number" value="{{ $obj->id ? $obj->phone_number : old('phone_number') }}" class="form-control input-lg ls-group-input">
+                        </div>
+                    </div>
+                    <hr>
 
-            <div class="row padding">
-                <label class="col-md-2 control-label"> نام کاربری</label>
-                <div class="col-md-10">
-                    {{ Form::text('username', old('username'), ['placeholder' => 'نام کاربری', "class" => 'form-control input-lg ls-group-input']) }}
+                    <h4 class="from-header">تحصیلات فرد</h4>
+                    <div class="row padding">
+                        <label class="col-md-2 control-label">وضعیت تحصیلی</label>
+                        <div class="col-md-10">
+                            <select name="education" class="form-control input-lg ls-group-input">
+                                <option value="student" @if($obj->education=="student")selected @endif>دانش آموز</option>
+                                <option value="collegian" @if($obj->education=="collegian")selected @endif>دانشجو</option>
+                                <option value="graduated" @if($obj->education=="graduated")selected @endif>فارغ التحصیل</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row padding">
+                        <label class="col-md-2 control-label">نام دانشگاه</label>
+                        <div class="col-md-10">
+                            <input name="university_name" type="text" value="{{ $obj->id ? $obj->university_name : old('university_name') }}"
+                                   class="form-control input-lg ls-group-input">
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="col-md-2 pull-right  top-padding">
+                        <button class="btn btn-success btn-block" type="submit">ذخیره</button>
+                    </div>
                 </div>
             </div>
-            <div class="row padding">
-                <label class="col-md-2 control-label">کلمه عبور </label>
-                <div class="col-md-10">
-                    {{ Form::password('password', ['placeholder' => '***', "class" => 'form-control input-lg ls-group-input']) }}
-                </div>
-            </div>
-
-            <div class="row padding">
-                <label class="col-md-2 control-label">تکرار کلمه عبور </label>
-                <div class="col-md-10">
-                    {{ Form::password('password_confirmation', ['placeholder' => '***', "class" => 'form-control input-lg ls-group-input']) }}
-                </div>
-            </div>
-
-            <hr>
-            <h4 class="from-header">مشخصات اعضا</h4>
-            <div class="row padding">
-                <label class="col-md-2 control-label">نام عضو اول</label>
-                <div class="col-md-10">
-                    {{ Form::text('m1_name', ($user->members()->count()) ? $user->members[0]->name : old('m1_name'), ["class" => 'form-control input-lg ls-group-input']) }}
-                </div>
-            </div>
-            <div class="row padding">
-                <label class="col-md-2 control-label">ایمیل عضو اول</label>
-                <div class="col-md-10">
-                    {{ Form::text('m1_email', ($user->members()->count()) ? $user->members[0]->email : old('m1_email'), ["class" => 'form-control input-lg ls-group-input']) }}
-                </div>
-            </div>
-            <hr>
-            <div class="row padding">
-                <label class="col-md-2 control-label">نام عضو دوم</label>
-                <div class="col-md-10">
-                    {{ Form::text('m2_name', ($user->members()->count()) ? $user->members[1]->name : old('m2_name'), ["class" => 'form-control input-lg ls-group-input']) }}
-                </div>
-            </div>
-            <div class="row padding">
-                <label class="col-md-2 control-label">ایمیل عضو دوم</label>
-                <div class="col-md-10">
-                    {{ Form::text('m2_email', ($user->members()->count()) ? $user->members[1]->email : old('m2_email'), ["class" => 'form-control input-lg ls-group-input']) }}
-                </div>
-            </div>
-            <div class="col-md-2 pull-right  top-padding">
-                <button class="btn btn-success btn-block" type="submit">ذخیره</button>
-            </div>
-        </div>
-    </div>
-
-
-    {{ Form::close() }}
+        </form>
 
 @endsection
 
